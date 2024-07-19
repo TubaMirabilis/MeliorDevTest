@@ -8,13 +8,9 @@ namespace Melior.InterviewQuestion.Services;
 public class PaymentService : IPaymentService
 {
     private readonly IAccountDataStore _store;
-    public PaymentService()
+    public PaymentService(IAccountDataStore store)
     {
-        _store = ConfigurationManager.AppSettings["DataStoreType"] switch
-        {
-            "Backup" => new BackupAccountDataStore(),
-            _ => new AccountDataStore()
-        };
+        _store = store;
     }
 
     public MakePaymentResult MakePayment(MakePaymentRequest request)
